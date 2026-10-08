@@ -64,16 +64,19 @@ def _check_profile(p: dict) -> None:
 # --------------------------------------------------------------------------- transport
 
 
-def sh(profile: dict, script: str, check: bool = True, capture: bool = True) -> subprocess.CompletedProcess:
-    """Run a bash script on the execution site (stdin-fed; no remote quoting of the script)."""
+def sh(profile: dict, script: str, check: bool = True, quiet: bool = False) -> subprocess.CompletedProcess:
+    """Run a bash login-shell script on the execution site (stdin-fed, so the script itself needs
+    no remote quoting; login shell so site module systems such as Lmod are initialized).
+    stdout is captured; stderr streams to the terminal unless quiet."""
     if profile["transport"]["type"] == "ssh":
-        cmd = ["ssh", "-o", "BatchMode=yes", profile["transport"]["host"], "bash", "-s"]
+        cmd = ["ssh", "-o", "BatchMode=yes", profile["transport"]["host"], "bash", "-l", "-s"]
     else:
-        cmd = ["bash", "-s"]
-    proc = subprocess.run(cmd, input="set -euo pipefail\n" + script, text=True,
-                          capture_output=capture)
+        cmd = ["bash", "-l", "-s"]
+    proc = subprocess.run(cmd, input="set -euo pipefail\n" + script, text=True, stdout=subprocess.PIPE,
+                          stderr=subprocess.PIPE if quiet else None)
     if check and proc.returncode != 0:
-        raise LauncherError(f"site command failed ({proc.returncode}):\n{(proc.stderr or '')[-3000:]}")
+        raise LauncherError(f"site command failed with exit {proc.returncode}" +
+                            (f":\n{proc.stderr[-3000:]}" if quiet and proc.stderr else " (see stderr above)"))
     return proc
 
 
@@ -161,7 +164,7 @@ if [ ! -s {_q(cache)}/references/{_q(bundle_id)}/BUNDLE.json ]; then
 fi
 echo "SIF_SHA256=$(cat {_q(sif)}.sha256 2>/dev/null || echo n/a)"
 """
-    out = sh(profile, script, capture=True).stdout
+    out = sh(profile, script).stdout
     sif_sha = re.search(r"SIF_SHA256=(\S+)", out)
     return {"image": profile["image"], "sif": sif if rt == "apptainer" else None,
             "sif_sha256": sif_sha.group(1) if sif_sha else None,
@@ -215,6 +218,8 @@ def job_script(profile: dict, run_dir: str, bundle_dir: str, run_id: str, force_
     jobs = "${SLURM_CPUS_PER_TASK}" if ex["type"] == "slurm" else str(ex.get("cpus", 1))
     args = ["agent-ldsc-worker", "run", "--request", "/work/input/request.json", "--refs", "/refs",
             "--work", "/work", "--jobs", "JOBS"]
+    if ex.get("annotations_per_task"):
+        args += ["--annotations-per-task", str(int(ex["annotations_per_task"]))]
     if force_unlock:
         args.append("--force-unlock")
     env = {"AGENT_LDSC_IMAGE": profile["image"], "SLURM_JOB_ID": "${SLURM_JOB_ID:-}"}
@@ -326,7 +331,7 @@ def cmd_status(a) -> int:
     if prof["executor"]["type"] == "slurm" and rec["submissions"]:
         ids = ",".join(s["job_id"] for s in rec["submissions"] if s.get("job_id"))
         st["scheduler"] = sh(prof, f"sacct -n -P -j {_q(ids)} -X -o JobID,State,Elapsed,MaxRSS,ExitCode 2>/dev/null || true",
-                             check=False).stdout.strip().splitlines()
+                             check=False, quiet=True).stdout.strip().splitlines()
     if a.json:
         print(json.dumps(st, indent=2))
     else:
