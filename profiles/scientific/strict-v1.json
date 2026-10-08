@@ -1,0 +1,24 @@
+{
+  "profile_id": "strict-v1",
+  "description": "Recovered S-LDSC LD-score method (1 cM window, thin binary annotations, HM3 print list) with strict, explicit mapping rules. Changing any field requires a new profile id.",
+  "ld": {
+    "ld_wind_cm": 1,
+    "annotation": "binary union of intervals per annotation (overlapping and book-ended intervals merged)",
+    "snp_membership": "SNP at 1-based BP p is inside BED [s,e) iff s <= p-1 < e (make_annot.py semantics)"
+  },
+  "liftover": {
+    "tool": "UCSC liftOver 482",
+    "min_match": 0.95,
+    "multiple": false
+  },
+  "genes": {
+    "gene_model": "gene_span: GENCODE 'gene' record start..end (1-based inclusive) -> BED [start-1, end), then symmetric flank_bp, clipped to chromosome bounds",
+    "symbol_matching": "exact HGNC approved symbol; otherwise a unique HGNC alias/previous symbol; no case folding or fuzzy matching",
+    "ensembl_version_suffix": "stripped (ENSG00000000003.15 -> ENSG00000000003)",
+    "allowed_remap_status": ["full_contig", "full_fragment", "automatic_small_ncrna_gene"],
+    "allowed_remap_num_mappings": ["1", ""],
+    "max_flank_bp": 1000000
+  },
+  "chromosomes": "autosomes 1-22; aliases chrN and N only",
+  "drop_policy": "records are dropped only for categories listed in the annotation's allow_drop (non_autosomal, liftover_unmapped, gene_unmapped); ambiguous gene symbols always fail"
+}

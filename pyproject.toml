@@ -1,0 +1,32 @@
+[project]
+name = "agent-ldsc"
+version = "0.1.0"
+description = "Annotations (BED intervals or human genes) to validated ldsR LD scores, run in one pinned container"
+requires-python = ">=3.10"
+license = "MIT"
+# Runtime dependencies of the worker live in the container lock (container/locks); this
+# file only drives local development and the host launcher, which is stdlib-only.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["numpy>=2.2", "pandas>=2.2", "pyarrow>=19", "jsonschema>=4.23", "pytest>=8.3"]
+
+[project.scripts]
+agent-ldsc = "agent_ldsc_launcher.cli:main"
+agent-ldsc-worker = "agent_ldsc_worker.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["launcher/agent_ldsc_launcher", "worker/agent_ldsc_worker"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["worker", "launcher", "tests"]
+markers = [
+  "ldsc: needs the pinned legacy ldsc (image, or AGENT_LDSC_LDSC_CMD)",
+  "liftover: needs the liftOver binary",
+  "rgate: needs Rscript with ldsR",
+]

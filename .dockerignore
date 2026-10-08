@@ -1,0 +1,11 @@
+# Explicit allow-list: only what the image needs.
+*
+!container/locks/
+!container/envs/ldsc-requirements.txt
+!container/bin/
+!worker/agent_ldsc_worker/
+!R/
+!schemas/
+!references/references.lock.json
+!profiles/scientific/
+**/__pycache__

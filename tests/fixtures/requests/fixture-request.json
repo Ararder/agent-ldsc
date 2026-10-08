@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "reference_id": "fixture-grch37-v1",
+  "scientific_profile": "strict-v1",
+  "annotations": [
+    {"id": "peaks", "type": "bed", "file": "peaks.bed", "species": "human", "build": "GRCh38",
+     "allow_drop": ["liftover_unmapped", "non_autosomal"]},
+    {"id": "genes", "type": "genes", "file": "genes.txt", "species": "human", "id_type": "symbol",
+     "gene_model": "gene_span", "flank_bp": 10000}
+  ]
+}

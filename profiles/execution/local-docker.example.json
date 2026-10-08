@@ -1,0 +1,9 @@
+{
+  "profile_id": "local-docker",
+  "transport": {"type": "local"},
+  "executor": {"type": "direct", "cpus": 4},
+  "runtime": {"type": "docker"},
+  "image": "ghcr.io/ararder/agent-ldsc@sha256:<digest from the release>",
+  "cache_root": "/absolute/path/agent-ldsc/cache",
+  "work_root": "/absolute/path/agent-ldsc/runs"
+}

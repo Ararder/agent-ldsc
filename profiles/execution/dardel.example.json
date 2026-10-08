@@ -1,0 +1,10 @@
+{
+  "profile_id": "dardel",
+  "transport": {"type": "ssh", "host": "dardel"},
+  "executor": {"type": "slurm", "account": "naiss2026-4-1187", "partition": "shared",
+               "cpus": 8, "mem": "16G", "time": "04:00:00"},
+  "runtime": {"type": "apptainer", "setup": "ml PDCOLD/23.12 apptainer/1.3.0-cpeGNU-23.12"},
+  "image": "ghcr.io/ararder/agent-ldsc@sha256:<digest from the release>",
+  "cache_root": "/cfs/klemming/projects/supr/ki-pgi-storage/shared/arvhar/agent-ldsc/cache",
+  "work_root": "/cfs/klemming/projects/supr/ki-pgi-storage/shared/arvhar/agent-ldsc/runs"
+}

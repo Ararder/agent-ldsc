@@ -1,0 +1,9 @@
+# Installed with: pip install --no-deps --only-binary :all: --require-hashes -r ldsc-requirements.txt
+# Versions follow the historical arvhar/ldsc image, except pandas 0.20.0 (sdist only) -> 0.20.3,
+# the last bugfix release inside bulik/ldsc's own pandas<0.21 requirement.
+numpy==1.16.0 --hash=sha256:24a9c287a4a1c427c2d45bf7c4fc6180c52a08fa0990d4c94e4c86a9b1e23ba5
+scipy==0.18.0 --hash=sha256:7b77d7721a2017fe6fe2369edf6631c1cb4d2665f7a0e0562ed3796e8d8007d4
+pandas==0.20.3 --hash=sha256:58b56065ac2298cdc6d12c69a34dc0d2315bb3827ca014a227b7412c5ee4204f
+python-dateutil==2.8.2 --hash=sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9
+pytz==2021.3 --hash=sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c
+six==1.13.0 --hash=sha256:1f1b7d42e254082a9db6279deae68afb421ceba6158efa6131de7b3003ee93fd

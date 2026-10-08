@@ -1,0 +1,12 @@
+# Legacy interpreter for the pinned bulik/ldsc commit (aa33296, Python 2.7). conda supplies
+# only the interpreter and bitarray; numpy/scipy/pandas come from hash-pinned PyPI wheels
+# (ldsc-requirements.txt), because conda-forge has no py27 scipy 0.18 build for numpy 1.16.
+name: ldsc
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=2.7.15
+  - pip
+  - bitarray=0.8.3
+  - nose=1.3.7

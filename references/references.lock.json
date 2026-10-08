@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "bundles": {
+    "eur-phase3-grch37-v1": {
+      "description": "1000 Genomes Phase 3 EUR (489 individuals, 9,997,231 autosomal SNPs, GRCh37/hg19) LD reference for S-LDSC, with HM3 print list, GENCODE v50lift37 gene spans, HGNC 2026-10-06 symbols, UCSC hg19<->hg38 chains and the ldsR baseline-v1.2 compatibility target.",
+      "genome_build": "GRCh37",
+      "ancestry": "EUR",
+      "sources": ["sldsc_ref", "ldsr_baseline_v1.2", "gencode_v50lift37_basic", "hgnc_2026_10_06", "ucsc_hg38ToHg19", "ucsc_hg19ToHg38", "ucsc_hg19_chrom_sizes"],
+      "expected": {
+        "reference_snps": 9997231,
+        "regression_snps": 1190321,
+        "common_snps_maf_gt_0.05": 5961159,
+        "individuals": 489
+      }
+    }
+  },
+  "sources": {
+    "sldsc_ref": {
+      "url": "https://zenodo.org/records/8367200/files/sldsc_ref.tar.gz",
+      "record": "https://zenodo.org/records/8367200",
+      "title": "Reference data for stratified LDscore regression",
+      "bytes": 712902644,
+      "md5": "442741559abab2680ad431021244e1f7",
+      "sha256": "48a26246063f14de8b21004d4c8d94cde2200410bb21ea8bf0985b4cd193b10e",
+      "kind": "tar.gz",
+      "notes": "Contents audited 2026-10-08: 1000G_EUR_Phase3_plink (bed/bim/fam chr1-22), 1000G_Phase3_frq, 1000G_EUR_Phase3_baseline (baseline v1.2, LDSC format), 1000G_Phase3_weights_hm3_no_MHC, hm_snp.txt (= baseline print_snps.txt). No README; build/ancestry inferred from hg19 positions and 1000G EUR sample IDs and confirmed against the ldsR baseline deposit."
+    },
+    "ldsr_baseline_v1.2": {
+      "url": "https://zenodo.org/records/15194124/files/baseline-1.2.zip",
+      "record": "https://zenodo.org/records/15194124",
+      "bytes": 249694264,
+      "md5": "240186ad4619cfa6eb4e74d1b0fd9895",
+      "sha256": "cd97daca3402ea70119813cbbf03899cc480be7ed1c9f62605b7a831b6180e75",
+      "kind": "zip"
+    },
+    "gencode_v50lift37_basic": {
+      "url": "https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_50/GRCh37_mapping/gencode.v50lift37.basic.annotation.gtf.gz",
+      "bytes": 102489267,
+      "md5": "882f383ac4b58049668a1daa50260503",
+      "sha256": "57e3c7c9fdeb25f53d39d0c71479d780859a3c4d74db08111e7e8163a63b2268",
+      "kind": "file",
+      "notes": "GENCODE release 50 gene models mapped to GRCh37 by GENCODE (official GRCh37_mapping). Gene coordinates are taken as published; agent-ldsc does not lift gene spans itself."
+    },
+    "hgnc_2026_10_06": {
+      "url": "https://storage.googleapis.com/public-download-files/hgnc/archive/archive/monthly/tsv/hgnc_complete_set_2026-10-06.tsv",
+      "bytes": 16973125,
+      "md5": "af43fd56a64ad57c0fcc72d6ef65e516",
+      "sha256": "8bf6f686e640dbc864a346484626953621b0500d900d26cd085a35c2782d725d",
+      "kind": "file"
+    },
+    "ucsc_hg38ToHg19": {
+      "url": "https://hgdownload.soe.ucsc.edu/goldenPath/hg38/liftOver/hg38ToHg19.over.chain.gz",
+      "bytes": 1246411,
+      "sha256": "14a712e8e147d9fc8e9d87d51977b46f6f8ddb93efbe5d0843d86b6205f587b1",
+      "kind": "file",
+      "notes": "Byte-identical to the chain used by the historical generate-ldscores liftover scripts on Dardel. UCSC URLs are unversioned; the sha256 is the pin."
+    },
+    "ucsc_hg19ToHg38": {
+      "url": "https://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg38.over.chain.gz",
+      "bytes": 227698,
+      "sha256": "5c0598e500ceb5a78c73086929e8ef993aec309bcafb595139b53d440b125a1d",
+      "kind": "file"
+    },
+    "ucsc_hg19_chrom_sizes": {
+      "url": "https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.chrom.sizes",
+      "bytes": 1971,
+      "sha256": "b404927655a4aada254ea94ad4da0c8901ed0737e67a0dcabedf673354b1f505",
+      "kind": "file"
+    }
+  }
+}

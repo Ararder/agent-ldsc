@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "reference_id": "eur-phase3-grch37-v1",
+  "scientific_profile": "strict-v1",
+  "description": "SS3x fixed500 inh_SNCG_2 peaks (hg38) — reproduction of ldsR_ldscores/ss3x_fixed500_19",
+  "annotations": [
+    {"id": "inh_SNCG_2", "type": "bed", "file": "inh_SNCG_2.bed", "species": "human", "build": "GRCh38",
+     "allow_drop": ["liftover_unmapped", "non_autosomal"]}
+  ]
+}

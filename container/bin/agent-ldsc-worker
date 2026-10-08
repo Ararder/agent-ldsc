@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /opt/envs/worker/bin/python -m agent_ldsc_worker "$@"

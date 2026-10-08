@@ -1,0 +1,23 @@
+# Modern environment: worker orchestration, interval/gene mapping, ldsR export and checks.
+name: worker
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+dependencies:
+  - python=3.12
+  - numpy=2.2
+  - pandas=2.2
+  - pyarrow=19
+  - jsonschema=4.23
+  - pytest=8.3
+  - ucsc-liftover=482
+  - bedtools=2.31.1
+  - r-base=4.4
+  - r-tidyverse=2.0.0
+  - r-arrow=19
+  - r-cli
+  - r-fs
+  - r-rlang
+  - r-jsonlite
+  - r-testthat
