@@ -52,8 +52,9 @@ def main(argv=None) -> int:
     try:
         if a.cmd == "refs" and a.refs_cmd == "install":
             from .refs import install_bundle
+            # progress to stderr; stdout carries only the installed path
             print(install_bundle(a.bundle, a.cache, source_dirs=a.source_dir, offline=a.offline,
-                                 ldsr_mask=a.ldsr_mask))
+                                 ldsr_mask=a.ldsr_mask, log=lambda m: print(m, file=sys.stderr, flush=True)))
             return 0
         if a.cmd == "refs" and a.refs_cmd == "verify":
             from .refs import load_bundle
