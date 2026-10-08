@@ -49,6 +49,10 @@ agent-ldsc cancel RUN_ID
 agent-ldsc fetch RUN_ID --destination results/      # only complete runs; verifies checksums
 ```
 
+Measured on the full 1000G panel: about 0.5 GB RSS per concurrent chromosome task. On Dardel's
+`shared` partition, memory is tied to cores (about 0.8 GB per CPU), so a larger `--mem` silently
+raises the CPU allocation, and with it billing and concurrency. Keep `mem` ≈ 0.75 GB × `cpus`.
+
 One Slurm allocation per run. Inside it, the worker runs up to `--cpus-per-task` chromosome
 tasks at once, each with single-threaded BLAS. A wall-time kill leaves completed tasks in
 place, and `resume` recomputes only invalid or missing ones.
